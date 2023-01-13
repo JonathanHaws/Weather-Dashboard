@@ -12,19 +12,23 @@
     font-weight: bolder;
 }
 
-h1{
-    color:var(--color2);
+body{
+    background-image: linear-gradient(to top, var(--color3), var(--color4));
+    background-attachment: fixed;
 }
 
 section{
     background-color:var(--color2);
     margin:auto;
-    margin-top:10px;
+    margin-top:20px;
     padding:10px;
     border-radius:6px;
 }
 
-body{
-    background-image: linear-gradient(to top, var(--color3), var(--color4));
-    background-attachment: fixed;
+h1{
+    color:var(--color2);
+}
+
+h2{
+    margin:0px;
 }

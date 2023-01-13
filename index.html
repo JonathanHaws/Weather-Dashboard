@@ -8,19 +8,21 @@
   </head>
   <body>
     
-    <h1>WEATHER</h1>
+    <h1>WEATHER FORECAST</h1>
     
-    <section id="search" style="width:200px;">
-      <form>  
-        <input type="search" placeholder="Search for a city">
-        <button style="display: inline-block;">
-          <i class="fa fa-search"></i>
+    <section style="width:min-content;">
+      <form style="display:flex;">  
+        <input type="search" placeholder="Search For A City"  style="font-size: x-large; padding:5px">
+        <button>
+          <i class="fa fa-search fa-2x"></i>
        </button>
       </form>
     </section>
 
-	<script src="index.js"></script>
+    <div id="weather"></div>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script src="index.js"></script>
 
   </body>
 </html>
