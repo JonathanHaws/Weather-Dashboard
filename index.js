@@ -1,7 +1,7 @@
 
 function getOpenWeatherFor(city,root,apikey){
     // first fetch is for converting city to geo cordinates (lon, lat), so cords can be used in the next 2 fetches
-    fetch("http://api.openweathermap.org/geo/1.0/direct?q="+city+"&appid="+apikey).then((cities)=>cities.json()).then(function(cities){ 
+    fetch("https://api.openweathermap.org/geo/1.0/direct?q="+city+"&appid="+apikey).then((cities)=>cities.json()).then(function(cities){ 
     // second fetch retrives current weather
     fetch("https://api.openweathermap.org/data/2.5/weather?lat="+cities[0].lat+"&lon="+cities[0].lon+"&units=imperial&appid="+apikey).then((weather)=>weather.json()).then(function(weather){     
     // third fetch retrives forecast data in 3 hour increments for next 5 days
@@ -41,6 +41,12 @@ function getOpenWeatherFor(city,root,apikey){
 
     })})}) // fetches are nested so code doesn't excecute until they are all complete
 }
+
+
+$("#btnSubmit").button().click(function(){
+    alert("button");
+});    
+
 
 getOpenWeatherFor("Salt Lake City",$("#weather"),"b02be164d047cfbed86694527d1d3a92");
 
