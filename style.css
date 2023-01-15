@@ -3,6 +3,7 @@
     --color2:#cbcbcb;
     --color3:#67cae5;
     --color4:#2d7f96;
+    --width: 
 }
 
 *{ 
@@ -20,7 +21,6 @@ body{
 section{
     background-color:var(--color2);
     margin:auto;
-    margin-top:20px;
     padding:10px;
     border-radius:6px;
 }
@@ -32,3 +32,13 @@ h1{
 h2{
     margin:0px;
 }
+
+h3{
+    margin:0px;
+}
+
+#weather{
+    margin:auto;
+    width:520px;
+}
+

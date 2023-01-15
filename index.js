@@ -1,27 +1,46 @@
 
-function getWeatherFor(city,root){
-    // first fetch is for converting city to geo cordinates (lon, lat)
-    fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=b02be164d047cfbed86694527d1d3a92")
-    .then((cities) => cities.json())
-    .then(function(cities){ // cities is an ordered array with 0 being the best guess for the user requested city
-        fetch("https://api.openweathermap.org/data/2.5/forecast?lat=" + cities[0].lat + "&lon=" + cities[0].lon + "&units=imperial&appid=b02be164d047cfbed86694527d1d3a92")
-        .then((data) => data.json()) 
-        .then(function(data){ // dynamically generate html with jquery based on weather data 
+function getOpenWeatherFor(city,root,apikey){
+    // first fetch is for converting city to geo cordinates (lon, lat), so cords can be used in the next 2 fetches
+    fetch("http://api.openweathermap.org/geo/1.0/direct?q="+city+"&appid="+apikey).then((cities)=>cities.json()).then(function(cities){ 
+    // second fetch retrives current weather
+    fetch("https://api.openweathermap.org/data/2.5/weather?lat="+cities[0].lat+"&lon="+cities[0].lon+"&units=imperial&appid="+apikey).then((weather)=>weather.json()).then(function(weather){     
+    // third fetch retrives forecast data in 3 hour increments for next 5 days
+    fetch("https://api.openweathermap.org/data/2.5/forecast?lat="+cities[0].lat +"&lon="+cities[0].lon+"&units=imperial&appid="+apikey).then((forecast)=>forecast.json()) .then(function(forecast){ 
             
-            console.log(data);
+            console.log(weather); // data retrived from fetch
+            console.log(forecast);  
             
-            var current = $("<section>",{ width: "max-content"}).appendTo(root); 
-            $("<h2>").text(data.city.name).appendTo(current); 
-            $("<h2>").text("Temprature: " + data.list[0].main.temp + "°").appendTo(current); 
-            $("<h2>").text("Wind Speed: " + data.list[0].wind.speed + " MPH").appendTo(current); 
-            $("<h2>").text("Humidity: " + data.list[0].main.humidity + " %").appendTo(current); 
-      
-        })
-    })
+            // current weather
+            var cityname = $("<section>").appendTo(root); 
+            cityname.css({"border-radius":"6px 6px 0px 0px","background-color":"var(--color1)"});
+            $("<h2>").text(weather.name).css({color:"var(--color2)"}).appendTo(cityname); 
+            var current = $("<section>",{style: "border-radius:0px"}).appendTo(root);  
+            $("<h3>").text(new Date().toLocaleDateString()).appendTo(current); 
+            $("<h3>").text("Temprature: " + weather.main.temp + "°").appendTo(current); 
+            $("<h3>").text("Wind Speed: " + weather.wind.speed + " MPH").appendTo(current); 
+            $("<h3>").text("Humidity: " + weather.main.humidity + "%").appendTo(current);
+
+            // forecast
+            function createDay$(day){
+                var div = $("<div>",{style: "background-color: var(--color2); padding:10px; border-radius:6px"});
+                $("<h3>").text(forecast.list[day].dt_txt.substr(5,6)).appendTo(div); 
+                $("<h3>").text(forecast.list[day].main.temp + "°").appendTo(div); 
+                $("<h3>").text(Math.trunc(forecast.list[day].wind.speed) + " MPH").appendTo(div); 
+                $("<h3>").text(forecast.list[day].main.humidity + "%").appendTo(div); 
+                return div;
+            }
+            var upcoming = $("<section>",{ width:"100px",style:"display:flex; justify-content:space-evenly; padding:10px 0px 10px 0px;"}).appendTo(root); 
+            upcoming.css({"border-radius":"0px 0px 6px 6px","background-color":"var(--color1)"});
+            createDay$(0).appendTo(upcoming);
+            createDay$(8).appendTo(upcoming);
+            createDay$(16).appendTo(upcoming);
+            createDay$(24).appendTo(upcoming);
+            createDay$(32).appendTo(upcoming);   
+
+    })})}) // fetches are nested so code doesn't excecute until they are all complete
 }
 
-
-getWeatherFor("Salt Lake City", $("#weather"));
+getOpenWeatherFor("Salt Lake City",$("#weather"),"b02be164d047cfbed86694527d1d3a92");
 
 
 
