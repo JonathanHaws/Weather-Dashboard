@@ -42,12 +42,6 @@ function getOpenWeatherFor(city,root,apikey){
     })})}) // fetches are nested so code doesn't excecute until they are all complete
 }
 
-
-$("#btnSubmit").button().click(function(){
-    alert("button");
-});    
-
-
 getOpenWeatherFor("Salt Lake City",$("#weather"),"b02be164d047cfbed86694527d1d3a92");
 
 
