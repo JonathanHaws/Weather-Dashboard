@@ -13,7 +13,7 @@ function getWeatherFor(city,root,apikey){
                
             var history = JSON.parse(localStorage.getItem("history")); // search history
             if (history == null) { history = { searches:[] }; } // if no search history exists create json base
-            history.searches.splice(0,0,weather.name); // insert new city at start of search history
+            history.searches.splice(0,0,weather.name); // insert new city at start of search historys
             if (history.searches.length > 5){ history.searches.length = 5;} // limit array to have 5 entries at the max
             history.searches = new Set(history.searches); history.searches = Array.from(history.searches) // converting array to set datatype and the back to array removes duplicates
             localStorage.setItem("history",JSON.stringify(history));
@@ -43,7 +43,7 @@ function getWeatherFor(city,root,apikey){
                 return div;
             }
             var upcoming = $("<section>",{ width:"100px",style:"display:flex; justify-content:space-evenly; padding:10px 0px 10px 0px;"}).appendTo(root); 
-            upcoming.css({"border-radius":"0px 0px 6px 6px","background-color":"var(--color1)"});
+            upcoming.css({"border-radius":"0px 0px 6px 6px","background-image":"linear-gradient(to top, var(--color4), var(--color1)"});
             createDay$(4).appendTo(upcoming);
             createDay$(12).appendTo(upcoming);
             createDay$(20).appendTo(upcoming);
