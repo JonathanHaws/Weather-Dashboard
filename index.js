@@ -10,6 +10,8 @@ function getOpenWeatherFor(city,root,apikey){
             console.log(weather); // data retrived from fetch
             console.log(forecast);  
 
+            root.empty(); // clear div then dynamically generate new HTML below 
+
             // current weather
             var cityname = $("<section>").appendTo(root); 
             cityname.css({"border-radius":"6px 6px 0px 0px","background-color":"var(--color1)"});
@@ -45,4 +47,7 @@ function getOpenWeatherFor(city,root,apikey){
 getOpenWeatherFor("Salt Lake City",$("#weather"),"b02be164d047cfbed86694527d1d3a92");
 
 
-
+$("button").on("click",function() {
+    getOpenWeatherFor($("input").val(),$("#weather"),"b02be164d047cfbed86694527d1d3a92");
+    console.log($("input").val());
+  });
